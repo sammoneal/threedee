@@ -1,5 +1,10 @@
 {
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
-    "python.terminal.activateEnvironment": false
+    "python.terminal.activateEnvironment": false,
+    "editor.tokenColorCustomizations": {
+        "[*Dark*]": {
+            "comments": "#929292"
+        },
+    }
 }

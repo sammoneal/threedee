@@ -1,6 +1,6 @@
 from PIL import ImageColor
 
-COLORS = ['red','orange','yellow','green','teal','blue','purple','magenta']
+COLORS = ['red','orange','yellow','lime','cyan','blue','purple','magenta']
 
 '''
 Returns a generator the builds the flat squence of pixel values for a grayscale image.

@@ -57,13 +57,13 @@ def scale_color(pure_color, scale):
     color = [int(i) for i in pure_color]
     if scale > 0.5:
         #lighten, increase if not 255
-        amount = (1 - scale) * 2
+        amount = (scale - 0.5) * 2
         for i in range(3):
             if color[i] < 255:
                 color[i] = round(255 * amount)
     elif scale < 0.5:
         #darken, decrease if not 0
-        amount = 1 - (scale * 2)
+        amount = (scale * 2)
         for i in range(3):
             if color[i]:
                 color[i] = round(color[i] * amount)
@@ -76,4 +76,6 @@ if __name__ == '__main__':
     print(scale_color(my_color, 0.25))
     print(scale_color(my_color, 0.75))
     print(scale_color(my_color, 0.5))
+    print(scale_color(my_color, 0.99))
+    print(scale_color(my_color, 0.01))
 

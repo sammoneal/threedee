@@ -79,7 +79,7 @@ def color_pixel_generator(tex_res, *args) -> Iterator[int]:
                 colors = LITTLE_COLORS
 
     for i in range(tex_res ** 2):
-        score = gradient_score(i, tex_res)
+        score = gradient_score(i, tex_res, invert=True)
         index = color_index(i, tex_res, color_res, len(colors))
         color = scale_color(ImageColor.getrgb(colors[index]), score)
         for channel in color:
@@ -110,11 +110,10 @@ def gradient_score(position:int, resolution:int, invert:bool=False) -> float:
 
     if invert:
         return 1 - score
-    else:
-        return score
+    return score
 
 
-def color_index(position:int, resolution:int, color_res:int, length:int) -> int:
+def color_index(position:int, resolution:int, color_blocks:int, length:int) -> int:
     """Finds the color block index of a flat pixel.
 
     Args:
@@ -126,15 +125,15 @@ def color_index(position:int, resolution:int, color_res:int, length:int) -> int:
     Returns:
         int: Index value
     """
-    #size of color blocks
-    color_step = resolution // color_res
+    #size of color blocks in pixels
+    color_step = resolution // color_blocks
 
-    #color block
+    #color block coordinates
     color_x = (position % resolution) // color_step
     color_y = (position // resolution) // color_step
 
-    #cummulative block wrapping at length
-    return ((color_res * color_y) + color_x) % length
+    #cummulative block number wrapping according to length
+    return ((color_blocks * color_y) + color_x) % length
 
 
 def scale_color(base_color:tuple, scale:float) -> tuple:

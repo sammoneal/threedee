@@ -10,7 +10,10 @@ import numpy as np
 
 COLORS = ('red','orange','magenta','purple','yellow','lime','cyan','blue')
 LITTLE_COLORS = ('red','lime','cyan','magenta')
-BIG_COLORS = ()
+BIG_COLORS = ('pink','red','orangered','orange',
+    'magenta','darkorchid','purple','indigo',
+    'gold', 'yellow','lime','green',
+    'cyan','deepskyblue','blue','gray')
 
 
 def bw_pixel_generator(tex_res:int) -> Iterator[int]:
@@ -41,7 +44,7 @@ def mono_pixel_generator(tex_res:int, color:str=None) -> Iterator[int]:
         int: pixel value
     """
     if not color:
-        color = COLORS[randint(0,len(COLORS)-1)]
+        color = COLORS[randint(0, len(COLORS)-1)]
     rgb = ImageColor.getrgb(color)
 
     for i in range(tex_res ** 2):
@@ -97,7 +100,7 @@ def gradient_score(position:int, resolution:int, invert:bool=False) -> float:
     Returns:
         float: Gradient score
     """
-    #size 16x16 is max for 256!
+    #size 16x16 is 256 values
     step = min((resolution // 8), 16)
     sub_area = step**2
 

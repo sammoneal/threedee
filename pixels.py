@@ -101,7 +101,7 @@ def gradient_score(position:int, resolution:int, invert:bool=False) -> float:
         float: Gradient score
     """
     #size 16x16 is 256 values
-    step = min((resolution // 8), 16)
+    step = max(min((resolution // 8), 16), 4)
     sub_area = step**2
 
     #local coordinates

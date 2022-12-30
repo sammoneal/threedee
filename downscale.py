@@ -1,4 +1,6 @@
 import math
+import os
+import re
 from PIL import Image
 
 
@@ -42,12 +44,49 @@ def tile(image:Image, num_tiles:int, resolution:int,) -> Image:
     return tiled_image
 
 
+def tile_pbr(num_tiles:int, resolution:int):
+
+    input = os.path.join(os.path.dirname(__file__), 'input')
+    output = os.path.join(os.path.dirname(__file__), 'output')
+    dir_list = [filename for filename in os.listdir(input) 
+                if os.path.isdir(os.path.join(input, filename))]
+
+    for dir in dir_list:
+        input_dir = os.path.join(input, dir)
+        output_dir = os.path.join(output, dir + '_' + str(resolution))
+        os.makedirs(output_dir)
+        for texture in os.listdir(input_dir):
+            im = Image.open(os.path.join(input_dir, texture))
+            im = tile(im, num_tiles, resolution)
+            save_path = os.path.join(output_dir,dir+'_'+str(resolution)+'_'+pbr_channel(texture)+'.png')
+            im.save(save_path, "PNG")
+
+
+def pbr_channel(texture_name:str) -> str:
+    texture_name = texture_name.lower()
+    channel = ""
+    if re.search("color", texture_name):
+        channel = 'color'
+    elif re.search('rough', texture_name):
+        channel = 'roughness'
+    elif re.search('normal', texture_name) or re.search('bump', texture_name):
+        channel = 'normal'
+    elif re.search('height', texture_name):
+        channel = 'height'
+    elif re.search('ao', texture_name):
+        channel = 'ao'
+    return channel
+
+
 if __name__ == '__main__':
-    image_a = Image.open('./input/beach.jpg')
+    #image_a = Image.open('./input/beach.jpg')
     #image_a.show()
-    image_b = Image.open('./input/wine.png')
+    #image_b = Image.open('./input/wine.png')
     #image_b.show()
-    image_c = combine(image_a, image_b, image_a)
-    image_c.show()
-    image_d = tile(image_a, 2, 256)
-    image_d.show()
+    #image_c = combine(image_a, image_b, image_a)
+    #image_c.show()
+    #image_a = Image.open('./input/grungewall/GrungeWall03_4K_BaseColor.png')
+    #image_d = tile(image_a, 4, 128)
+    #image_d.show()
+    print(tile_pbr(2,128))
+

@@ -68,7 +68,7 @@ def pbr_channel(texture_name:str) -> str:
     if re.search("color", texture_name):
         channel = 'color'
     elif re.search('rough', texture_name):
-        channel = 'roughness'
+        channel = 'rough'
     elif re.search('normal', texture_name) or re.search('bump', texture_name):
         channel = 'normal'
     elif re.search('height', texture_name):
@@ -88,5 +88,5 @@ if __name__ == '__main__':
     #image_a = Image.open('./input/grungewall/GrungeWall03_4K_BaseColor.png')
     #image_d = tile(image_a, 4, 128)
     #image_d.show()
-    print(tile_pbr(2,128))
+    print(tile_pbr(1,512))
 

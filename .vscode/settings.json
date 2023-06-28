@@ -2,6 +2,7 @@
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "python.terminal.activateEnvironment": false,
+    "editor.semanticHighlighting.enabled": true,
     "editor.tokenColorCustomizations": {
         "[*Dark*]": {
             "comments": "#929292"
